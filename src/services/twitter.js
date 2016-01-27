@@ -7,35 +7,37 @@ const client = new Twitter({
     access_token_secret: config.twitter.access_token_secret
 });
 
+// a wrapper for the twitter api calls library, 
+// npm twitter is callback based - calls are wrapped in promises
 class TwitterService {
     constructor() {
     }
-    
-    // rest methods
- 
-    //  promise implementation
-    // var searchPromise = client.get('favorites/list');
-    // searchPromise.then(function(tweets, response) {
-    //      console.log(tweets);  // The favorites. 
-    //     console.log(response);  // Raw response object. 
-    //     cb(tweets);
-    // }, function(err) {
-    //     console.log(err);
-    // }) 
-    
-    
-    // streaming methods
+   
+    // REST    
+    getHashtag(hashtag) {
+        return new Promise(function(resolve, reject) {
+            client.get('search/tweets', {q: hashtag}, (error, tweets, response) => {
+                if(error) {
+                    reject(error);
+                } else {
+                    console.log(tweets);  // The favorites. 
+                    console.log(response);  // Raw response object. 
+                    resolve(tweets);
+                }
+            })
+        });
+    }
+       
+    // streaming
     streamHashtag(hashtag) {
-        // twitter api is callback based - wrapping in a promise
-        return new Promise( function(resolve,reject){
-            client.stream('statuses/filter', {track: hashtag}, function(stream) {
-                stream.on('data', function(tweet) {
-                    
+        return new Promise(function(resolve,reject) {
+            client.stream('statuses/filter', {track: hashtag}, (stream) => {
+                stream.on('data', (tweet) => {
                     console.log(tweet.text);
                     resolve(tweet.text);
                 });
             
-                stream.on('error', function(error) {
+                stream.on('error', (error) => {
                     reject(error);
                 });
             });

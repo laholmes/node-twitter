@@ -1,23 +1,36 @@
-node app demoing integration with twitter api
+*node-twitter* 
 
-written in es6
+a node app demoing integration with twitter api
 
-setup
+*details*
+written in es6 (babel for transpiling es6)
+uses npm twitter (wrapping callback-based api in promises)
 
-use npm install to install all dependencies
-twitter api credentials should be stored in ./config.json
 
-use
+*setup*
+npm install - install all dependencies
+set config - twitter api credentials should be stored in ./config.json as follows:
 
-gulp compile uses babel to compile the src
+{
+    "twitter": {
+        "consumer_key": "abc1",
+        "consumer_secret": "abc2",
+        "access_token_key": "abc3",
+        "access_token_secret": "abc4"
+    }
+}
 
-node dist/app.js runs the compiled app
+gulp compile - compiles es6 src folder to dist folder using babel
+
+*use*
+
+node dist/app.js - run the compiled app
 
 input is taken from input/input.json
 output is logged to the console and saved to output/output.json
 errors are logged to the console and saved to log/error.json - this would be saved on driver
 
-test
+*test*
 
 gulp test (runs on mocha)
 
