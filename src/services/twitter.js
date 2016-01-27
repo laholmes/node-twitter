@@ -12,18 +12,8 @@ class TwitterService {
     }
     
     // rest methods
-    searchForHashtag(hashtag, cb) {
-        client.get('favorites/list', function(error, tweets, response){
-            if(error) {
-                throw error;
-            }
-            console.log(tweets);  // The favorites. 
-            console.log(response);  // Raw response object. 
-            cb(tweets);
-        });
-    }
-        
-    // replace with promise implementation
+ 
+    //  promise implementation
     // var searchPromise = client.get('favorites/list');
     // searchPromise.then(function(tweets, response) {
     //      console.log(tweets);  // The favorites. 
@@ -35,15 +25,19 @@ class TwitterService {
     
     
     // streaming methods
-    streamHashtag(hashtag, cb) {
-        client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
-            stream.on('data', function(tweet) {
-                console.log(tweet.text);
-                cb(tweet.text);
-            });
+    streamHashtag(hashtag) {
+        // twitter api is callback based - wrapping in a promise
+        return new Promise( function(resolve,reject){
+            client.stream('statuses/filter', {track: hashtag}, function(stream) {
+                stream.on('data', function(tweet) {
+                    
+                    console.log(tweet.text);
+                    resolve(tweet.text);
+                });
             
-            stream.on('error', function(error) {
-                throw error;
+                stream.on('error', function(error) {
+                    reject(error);
+                });
             });
         });
     }
