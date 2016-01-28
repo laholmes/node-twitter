@@ -24,7 +24,7 @@ gulp compile - compiles es6 src folder to dist folder using babel
 
 ##use
 
-node dist/app.js - run the compiled app
+node dist/app.js - run the compiled app, calls rest endpoint. to use streaming, uncomment in src/app.js and recompile
 
 input is taken from input/input.json
 output is logged to the console and saved to output/output.json
