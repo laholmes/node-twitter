@@ -19,7 +19,7 @@ server.route({
     handler: function (request, reply) {
         TwitterService.getHashtag(request.params.hashtag)
             .then(function fulfilled(tweets) {
-                if(tweets.statuses) {
+                if (tweets.statuses) {
                     const statuses = _.map(tweets.statuses, (status) => { 
                         return status.text; })
                     .join('\n');

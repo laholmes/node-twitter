@@ -8,7 +8,7 @@ const _ = require('lodash');
 // rest call
 TwitterService.getHashtag(input.hashtag)
     .then(function fulfilled(tweets) {
-        if(tweets.statuses) {
+        if (tweets.statuses) {
             const summary = stringifySummary(tweets.statuses.length, input.hashtag);
             const statuses = _.map(tweets.statuses, (status) => { 
                 return status.text; })
@@ -47,11 +47,11 @@ function stringifySummary(count, hashtag) {
  
 function saveRestOutput(summary, statuses) {
     return fs.writeFile('output/message.txt', JSON.stringify(statuses), (err) => {
-        if(err) {
+        if (err) {
             logError(err);
         }
         fs.appendFile('output/message.txt', summary, (err) => {
-            if(err) {
+            if (err) {
                 logError(err);
             }
             return;
