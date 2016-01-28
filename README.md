@@ -1,13 +1,13 @@
-*node-twitter* 
+#node-twitter
 
 a node app demoing integration with twitter api
 
-*details*
+##details
 written in es6 (babel for transpiling es6)
 uses npm twitter (wrapping callback-based api in promises)
 
 
-*setup*
+##setup
 npm install - install all dependencies
 set config - twitter api credentials should be stored in ./config.json as follows:
 
@@ -22,7 +22,7 @@ set config - twitter api credentials should be stored in ./config.json as follow
 
 gulp compile - compiles es6 src folder to dist folder using babel
 
-*use*
+##use
 
 node dist/app.js - run the compiled app
 
@@ -30,7 +30,7 @@ input is taken from input/input.json
 output is logged to the console and saved to output/output.json
 errors are logged to the console and saved to log/error.json - this would be saved on driver
 
-*test*
+##test
 
 gulp test (runs on mocha)
 
