@@ -33,5 +33,5 @@ errors are logged to the console and saved to log/error.json - this would be sav
 
 ##test
 
-gulp test (mocha)
+npm test (mocha)
 
