@@ -4,7 +4,8 @@
   "description": "a demo node app which queries the twitter api",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha **/*.js",
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "gulp-babel": "^6.1.1",
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^2.0.0",
+    "hapi": "^12.1.0",
     "jscs": "^2.9.0",
     "jshint": "^2.9.1",
     "mocha": "^2.4.2",
