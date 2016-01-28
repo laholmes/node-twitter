@@ -11,8 +11,8 @@ TwitterService.getHashtag(input.hashtag)
         if (tweets.statuses) {
             const summary = stringifySummary(tweets.statuses.length, input.hashtag);
             const statuses = _.map(tweets.statuses, (status) => { 
-                return status.text; })
-                .join('\n');
+                return status.text; 
+            }).join('\n');
 
             saveRestOutput(summary, statuses);
         }
