@@ -3,30 +3,57 @@ const config = require('../config');
 const TwitterService = new tws.TwitterService(config.twitter);
 const fs = require('fs');
 const input = require('../input/input.json');
+const _ = require('lodash');
 
-// twitterService.getHashtag('input.hashtag')
-// .then(function fulfilled(tweet) {
-    
-// }) function(tweets) {
-//         fs.writeFile('message.txt', JSON.stringify(tweets[0]), (err) => {
-//     if (err) throw err;
-//     console.log('It\'s saved!');
-//     });
+// rest call
+TwitterService.getHashtag(input.hashtag)
+    .then(function fulfilled(tweets) {
+        if(tweets.statuses) {
+            const summary = stringifySummary(tweets.statuses.length, input.hashtag);
+            const statuses = _.map(tweets.statuses, (status) => { 
+                return status.text; })
+                .join('\n');
 
-// });
-
-TwitterService.streamHashtag(input.hashtag)
-    .then(function fulfilled(tweet) {
-        fs.appendFile('output/message.txt', JSON.stringify(tweet), (err) => {
-            if (err) {
-                throw err;
-            }
-        });
-    }, function rejected(err) {
-        console.log(err);
-        // fs.writeFile('log/error.txt', err, (err) => {
-        //     if (err) {
-        //         throw err;
-        //     }
-        // })
+            saveRestOutput(summary, statuses);
+        }
     });
+
+// streaming call
+// TwitterService.streamHashtag(input.hashtag)
+//     .then(function fulfilled(tweet) {
+//         fs.appendFile('output/message.txt', JSON.stringify(tweet), (err) => {
+//             if (err) {
+//                 logError(err);
+//             }
+//             return;
+//         });
+//     }, function rejected(err) {
+//         logError(err);
+//     });
+    
+function logError(err) {
+    fs.writeFile('log/error.txt', err, (err) => {
+        if (err) {
+            throw err;
+        }
+    });
+ }
+ 
+ function stringifySummary(count, hashtag) {
+    const tweetCount = count ? count : 0;
+    return '\nTWEETS: ' + tweetCount + ', HASHTAG: ' + hashtag;
+ }
+ 
+function saveRestOutput(summary, statuses) {
+    return fs.writeFile('output/message.txt', JSON.stringify(statuses), (err) => {
+        if(err) {
+            logError(err);
+        }
+        fs.appendFile('output/message.txt', summary, (err) => {
+            if(err) {
+                logError(err);
+            }
+            return;
+        });
+    });
+ }

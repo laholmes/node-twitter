@@ -20,8 +20,6 @@ class TwitterService {
                 if(error) {
                     reject(error);
                 } else {
-                    console.log(tweets);  // The favorites. 
-                    console.log(response);  // Raw response object. 
                     resolve(tweets);
                 }
             })
@@ -34,7 +32,6 @@ class TwitterService {
         return new Promise((resolve,reject) => {
             twitterClient.stream('statuses/filter', {track: hashtag}, (stream) => {
                 stream.on('data', (tweet) => {
-                    console.log(tweet.text);
                     resolve(tweet.text);
                 });
             
