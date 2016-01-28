@@ -25,11 +25,15 @@ gulp compile - compiles es6 src folder to dist folder using babel
 ##use
 
 node dist/app.js - run the compiled app
-npm start - run a hapi server instance, navigate to localhost:8000/hashtag (hashtag query param - replace with your search)
 
 input is taken from input/input.json
 output is logged to the console and saved to output/output.json
 errors are logged to the console and saved to log/error.json - this would be saved on driver
+
+or
+
+npm start - run a hapi server instance, navigate to localhost:8000/hashtag (hashtag query param - replace with your search)
+
 
 ##test
 
