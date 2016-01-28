@@ -1,22 +1,22 @@
 const Twitter = require('twitter');
-const config = require('../../config');
-const client = new Twitter({
-    consumer_key: config.twitter.consumer_key,
-    consumer_secret: config.twitter.consumer_secret,
-    access_token_key: config.twitter.access_token_key,
-    access_token_secret: config.twitter.access_token_secret
-});
 
 // a wrapper for the twitter api calls library, 
 // npm twitter is callback based - calls are wrapped in promises
 class TwitterService {
-    constructor() {
+    constructor(twitterConfig) {
+        this.client = new Twitter({
+            consumer_key: twitterConfig.consumer_key,
+            consumer_secret: twitterConfig.consumer_secret,
+            access_token_key: twitterConfig.access_token_key,
+            access_token_secret: twitterConfig.access_token_secret
+        });;
     }
    
     // REST    
     getHashtag(hashtag) {
-        return new Promise(function(resolve, reject) {
-            client.get('search/tweets', {q: hashtag}, (error, tweets, response) => {
+        var twitterClient = this.client;
+        return new Promise((resolve, reject) => {
+            twitterClient.get('search/tweets', {q: hashtag}, (error, tweets, response) => {
                 if(error) {
                     reject(error);
                 } else {
@@ -30,8 +30,9 @@ class TwitterService {
        
     // streaming
     streamHashtag(hashtag) {
-        return new Promise(function(resolve,reject) {
-            client.stream('statuses/filter', {track: hashtag}, (stream) => {
+        var twitterClient = this.client;
+        return new Promise((resolve,reject) => {
+            twitterClient.stream('statuses/filter', {track: hashtag}, (stream) => {
                 stream.on('data', (tweet) => {
                     console.log(tweet.text);
                     resolve(tweet.text);

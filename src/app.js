@@ -1,5 +1,6 @@
 const tws = require('./services/twitter');
-const TwitterService = new tws.TwitterService();
+const config = require('../config');
+const TwitterService = new tws.TwitterService(config.twitter);
 const fs = require('fs');
 const input = require('../input/input.json');
 
@@ -22,9 +23,10 @@ TwitterService.streamHashtag(input.hashtag)
             }
         });
     }, function rejected(err) {
-        fs.writeFile('log/error.txt', err, (err) => {
-            if (err) {
-                throw err;
-            }
-        })
+        console.log(err);
+        // fs.writeFile('log/error.txt', err, (err) => {
+        //     if (err) {
+        //         throw err;
+        //     }
+        // })
     });
