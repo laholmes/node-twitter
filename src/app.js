@@ -39,10 +39,11 @@ function logError(err) {
     });
  }
  
- function stringifySummary(count, hashtag) {
+function stringifySummary(count, hashtag) {
     const tweetCount = count ? count : 0;
     return '\nTWEETS: ' + tweetCount + ', HASHTAG: ' + hashtag;
  }
+ exports.stringifySummary = stringifySummary;
  
 function saveRestOutput(summary, statuses) {
     return fs.writeFile('output/message.txt', JSON.stringify(statuses), (err) => {

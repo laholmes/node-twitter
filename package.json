@@ -4,7 +4,7 @@
   "description": "a demo node app which queries the twitter api",
   "main": "index.js",
   "scripts": {
-    "test": "mocha **/*.js",
+    "test": "./node_modules/jasmine-node/bin/jasmine-node spec",
     "start": "node dist/server.js"
   },
   "repository": {
@@ -32,9 +32,10 @@
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^2.0.0",
     "hapi": "^12.1.0",
+    "jasmine": "^2.4.1",
+    "jasmine-node": "^1.14.5",
     "jscs": "^2.9.0",
     "jshint": "^2.9.1",
-    "mocha": "^2.4.2",
     "twitter": "^1.2.5"
   }
 }
